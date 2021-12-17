@@ -29,6 +29,8 @@ run: all
 
 gdb: all
 
+include assembly.mk
+
 clean:
 	rm -rf Makefile.* build/
 
