@@ -3,5 +3,5 @@
 .type _start, @function
 
 _start:
-  mv sp, ra
-  nop
+  mv s0, zero
+  ebreak
