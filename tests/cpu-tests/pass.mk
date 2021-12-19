@@ -1,1 +1,1 @@
-PASS := simple
+PASS := simple addi add arithImm

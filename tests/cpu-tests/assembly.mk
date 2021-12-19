@@ -33,8 +33,13 @@ ASM.mk.%: assembly/$(ISA)/*/%.S latest
 		printf "[%14s] $(COLOR_GREEN)PASS!$(COLOR_NONE)\n" $* >> $(RESULT); \
 	else \
 		printf "[%14s] $(COLOR_RED)FAIL!$(COLOR_NONE)\n" $* >> $(RESULT); \
+		FAILED=true; \
 	fi
 	-@rm ASM.mk.*
 	@cat $(RESULT)
 	@rm $(RESULT)
+	@if [ -n "$$FAILED" ]; then \
+		exit 1; \
+	fi
 	
+.PHONY: asm asm-all asm-run asm-gdb
