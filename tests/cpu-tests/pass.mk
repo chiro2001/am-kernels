@@ -1,1 +1,1 @@
-PASS := simple addi add arithImm
+PASS := simple addi add arithImm arith forward1 forward2 jump jump2 lui lwsw
