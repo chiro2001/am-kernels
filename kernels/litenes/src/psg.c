@@ -45,6 +45,7 @@ void psg_detect_key() {
   while (1) {
     AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
     if (ev.keycode == AM_KEY_NONE) break;
+    // printf("key code: %d\n", ev.keycode);
     key_state[ev.keycode] = ev.keydown;
   }
 }

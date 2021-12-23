@@ -14,19 +14,25 @@ int main() {
   ioe_init();
 
   int i = 0;
-  unsigned long last = 0;
-  unsigned long current;
+  // unsigned long last = 0;
+  // unsigned long current;
+
+  printf("Init done! Total %d images!\n", NR_IMG);
 
   display_image(i);
 
+  printf("Displayed first image.\n");
+
   while (1) {
-    current = io_read(AM_TIMER_UPTIME).us / 1000;
-    if (current - last > 5000) {
+    // current = io_read(AM_TIMER_UPTIME).us / 1000;
+    // if (current - last > 5000) {
+    // if (current - last > 5) {
       // change image every 5s
       i = (i + 1) % NR_IMG;
       display_image(i);
-      last = current;
-    }
+      // last = current;
+      printf("Displayed #%d image.\n", i);
+    // }
   }
   return 0;
 }

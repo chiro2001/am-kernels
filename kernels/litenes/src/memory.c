@@ -4,13 +4,24 @@
 #include "psg.h"
 
 byte memory_readb(word address) {
+  byte ret = 0;
+  // switch (address >> 13) {
+  //   case 0: return cpu_ram_read(address & 0x07FF);
+  //   case 1: return ppuio_read(address);
+  //   case 2: return psgio_read(address);
+  //   case 3: return cpu_ram_read(address & 0x1FFF);
+  //   default: return mmc_read(address);
+  // }
   switch (address >> 13) {
-    case 0: return cpu_ram_read(address & 0x07FF);
-    case 1: return ppuio_read(address);
-    case 2: return psgio_read(address);
-    case 3: return cpu_ram_read(address & 0x1FFF);
-    default: return mmc_read(address);
+    case 0: ret = cpu_ram_read(address & 0x07FF); break;
+    case 1: ret = ppuio_read(address); break;
+    case 2: ret = psgio_read(address); break;
+    case 3: ret = cpu_ram_read(address & 0x1FFF); break;
+    default: ret = mmc_read(address); break;
   }
+  // if (ret)
+  //   printf("[%u] memory_readb(%u) = %u\n", (address >> 13), address, ret);
+  return ret;
 }
 
 void memory_writeb(word address, byte data) {

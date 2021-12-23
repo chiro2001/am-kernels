@@ -590,9 +590,12 @@ unsigned long long cpu_clock() {
 }
 
 void cpu_run(long cycles) {
+  // printf("cpu_run(%lu)\n", cycles);
   cycles /= 3;
   while (cycles > 0) {
     op_code = memory_readb(cpu.PC++);
+    // if (op_code)
+    //   printf("op_code = %u\n", op_code);
     if (cpu_op_address_mode[op_code] == NULL) {
     }
     else {

@@ -1,4 +1,5 @@
 #include "common.h"
+#include "cpu-internal.h"
 
 #ifndef CPU_H
 #define CPU_H
@@ -13,5 +14,7 @@ void cpu_run(long cycles);
 
 // CPU cycles that passed since power up
 unsigned long long cpu_clock();
+
+extern CPU_STATE cpu;
 
 #endif

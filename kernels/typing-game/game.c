@@ -86,7 +86,7 @@ void render() {
   }
   io_write(AM_GPU_FBDRAW, 0, 0, NULL, 0, 0, true);
   for (int i = 0; i < 40; i++) putch('\b');
-  printf("Hit: %d; Miss: %d; Wrong: %d", hit, miss, wrong);
+  printf("Hit: %d; Miss: %d; Wrong: %d\n", hit, miss, wrong);
 }
 
 void check_hit(char ch) {

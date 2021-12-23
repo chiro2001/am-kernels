@@ -7,6 +7,8 @@ extern char rom_mario_nes[];
 int main() {
   ioe_init();
 
+  printf("ioe_init done!\n\n");
+
   printf("==================== LiteNES Emulator ====================\n\n");
   printf("Control:      [%s]         SELECT [%s]   START [%s]\n"
          "          [%s] [%s] [%s]          A [%s]   B     [%s]\n\n",
@@ -15,8 +17,10 @@ int main() {
         TOSTRING(KEY_A),    TOSTRING(KEY_B));
   printf("==========================================================\n");
 
-  fce_load_rom((void *)rom_mario_nes);
+  assert(fce_load_rom((void *)rom_mario_nes) == 0);
+  printf("Load done!\n");
   fce_init();
+  printf("Init done!\n");
   fce_run();
   return 1;
 }

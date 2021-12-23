@@ -11,6 +11,7 @@ static inline bool candraw() { return frame_cnt % (1 + FRAME_SKIP) == 0; }
 static uint32_t canvas[SCR_W * SCR_H];
 
 void draw(int x, int y, int idx) {
+  // printf("draw(%d, %d, %d)\n", x, y, idx);
   if (x >= 0 && x < SCR_W && y >= 0 && y < SCR_H && candraw()) {
     canvas[y * SCR_W + x] = palette[idx];
   }
@@ -38,6 +39,7 @@ int fce_load_rom(char *rom) {
   fce_rom_header = (ines_header*)romread(sizeof(ines_header));
 
   if (memcmp(fce_rom_header->signature, "NES\x1A", 4)) {
+    printf("NES\\x1A not found! [%c]:[E]\n", fce_rom_header->signature[1]);
     return -1;
   }
 
@@ -58,6 +60,7 @@ int fce_load_rom(char *rom) {
     }
   }
   else {
+    printf("mmc_id = %d, err\n", mmc_id);
     return -1;
   }
 
@@ -103,6 +106,7 @@ void fce_run() {
   int nr_draw = 0;
   uint32_t last = gtime;
   while(1) {
+    // printf("PC at: 0x%08X\n", cpu.PC);
     wait_for_frame();
     int scanlines = 262;
 
@@ -116,7 +120,7 @@ void fce_run() {
     if (upt - last > 1000) {
       last = upt;
       for (int i = 0; i < 80; i++) putch('\b');
-      printf("(System time: %ds) FPS = %d", upt / 1000, nr_draw);
+      printf("(System time: %ds) FPS = %d\n", upt / 1000, nr_draw);
       nr_draw = 0;
     }
   }
@@ -135,6 +139,9 @@ void fce_update_screen() {
   panic_on(xpad < 0 || ypad < 0, "screen too small");
 
   io_write(AM_GPU_FBDRAW, xpad, ypad, canvas, SCR_W, SCR_H, true);
+  // printf("screen updated!\n");
 
   for (int i = 0; i < SCR_W * SCR_H; i ++) canvas[i] = bgc;
+  // for (int i = 0; i < SCR_W * SCR_H; i ++) canvas[i] = bgc | 0xFFFFFFFF;
+  // for (int i = 0; i < SCR_W * SCR_H; i ++) canvas[i] = canvas[i] | bgc;
 }

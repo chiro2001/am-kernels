@@ -31,6 +31,8 @@ gdb: all
 
 include assembly.mk
 
+run-qemu: all
+
 clean:
 	rm -rf Makefile.* build/
 
